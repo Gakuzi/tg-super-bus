@@ -1,0 +1,6 @@
+body { margin: 0; font-family: Inter, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial; }
+.card { background: #fff; border: 1px solid #e5e5ea; border-radius: 12px; padding: 12px; }
+.row { display: flex; gap: 8px; align-items: center; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+input, select, textarea, button { padding: 8px; border-radius: 8px; border: 1px solid #e5e5ea; }
+button { cursor: pointer; background: #fff; }
