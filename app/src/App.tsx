@@ -1,5 +1,7 @@
 import './styles/global.css';
 import { useEffect, useState } from 'react';
+import { useAuth } from './lib/auth';
+import { signInWithGoogle } from './setup/firebase';
 import Planner from './planner/Planner';
 import Calendar from './views/Calendar';
 import Ideas from './views/Ideas';
@@ -9,6 +11,7 @@ import Settings from './views/Settings';
 import { useI18n } from './lib/i18n';
 
 export default function App() {
+  const { user } = useAuth();
   const [tab, setTab] = useState<'planner' | 'calendar' | 'ideas' | 'posts' | 'analytics' | 'settings'>('planner');
   const [isMobile, setIsMobile] = useState(false);
   const { t } = useI18n();
@@ -19,6 +22,22 @@ export default function App() {
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
+
+  if (user === undefined) {
+    return <div className="flex min-h-screen items-center justify-center text-slate-600">Загрузка…</div>;
+  }
+
+  if (!user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+          <h1 className="mb-2 text-2xl font-bold text-slate-900">TG Super-Bus</h1>
+          <p className="mb-6 text-sm text-slate-600">Войдите, чтобы продолжить и подключить ваши каналы Telegram.</p>
+          <button className="btn-primary w-full" onClick={signInWithGoogle}>Войти через Google</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-50 text-gray-900" style={{ fontFamily: 'Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial' }}>
