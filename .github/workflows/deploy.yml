@@ -26,6 +26,10 @@ jobs:
         run: pnpm install
       - name: Install app deps
         run: pnpm -C app install
+      - name: Create env for Vite from GitHub Secrets
+        run: |
+          echo "VITE_API_BASE=${{ secrets.VITE_API_BASE }}" >> app/.env
+          echo "VITE_PUBLIC_SIGNING_SALT=${{ secrets.VITE_PUBLIC_SIGNING_SALT }}" >> app/.env
       - name: Build app
         run: pnpm -C app build
       - name: Upload artifact
