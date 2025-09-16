@@ -12,9 +12,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    const { auth } = ensureFirebase();
-    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
-    return () => unsub();
+    let unsub: (() => void) | null = null;
+    try {
+      const { auth } = ensureFirebase();
+      unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    } catch (e) {
+      // Если Firebase не настроен — сразу показываем неавторизованного пользователя,
+      // чтобы отобразить лендинг и инструкции вместо вечной «Загрузка…»
+      setUser(null);
+    }
+    return () => { if (unsub) unsub(); };
   }, []);
 
   const value = useMemo(() => ({ user }), [user]);
