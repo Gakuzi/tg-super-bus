@@ -2,26 +2,35 @@ import { Router } from 'itty-router';
 import { verifyHmac } from './lib/hmac';
 import { withCors } from './lib/cors';
 import { callTelegram } from './lib/telegram';
+import { improveText } from './lib/ai';
 
 export interface Env {
   CF_ALLOWED_ORIGINS: string;
   SIGNING_SECRET: string;
   TG_BOT_TOKEN: string;
   NONCES: KVNamespace;
+  // AI providers
+  AI_PROVIDER?: string;
+  GEMINI_API_KEY?: string;
+  CF_ACCOUNT_ID?: string;
+  CF_API_TOKEN?: string;
+  CF_AI_MODEL?: string;
+  OPENAI_API_KEY?: string;
+  OPENAI_MODEL?: string;
 }
 
 const router = Router();
 
-function isDevBypass(req: Request, env: Env) {
+function isDevBypass(req: Request) {
   const origin = req.headers.get('origin') || '';
-  const dev = req.headers.get('x-dev') === 'true';
-  return dev && origin === 'http://localhost:5173';
+  const dev = (req.headers.get('x-dev') || '').toLowerCase() === 'true';
+  return dev && /^http:\/\/localhost:(5173|5174|5175)$/.test(origin);
 }
 
 router.options('*', () => new Response('ok'));
 
 router.post('/api/tg', async (req: Request, env: Env) => {
-  if (!isDevBypass(req, env)) {
+  if (!isDevBypass(req)) {
     const check = await verifyHmac(req, env.SIGNING_SECRET, env.NONCES);
     if (!check.ok) return json({ error: check.error }, 401);
   }
@@ -40,12 +49,13 @@ router.get('/api/rss/discover', async (req: Request) => {
 });
 
 router.post('/api/ai/improve', async (req: Request, env: Env) => {
-  if (!isDevBypass(req, env)) {
+  if (!isDevBypass(req)) {
     const check = await verifyHmac(req, env.SIGNING_SECRET, env.NONCES);
     if (!check.ok) return json({ error: check.error }, 401);
   }
-  const { variant, text } = await req.json<any>();
-  return json({ text: heuristicImprove(variant, text) });
+  const { variant, text, brand } = await req.json<any>();
+  const out = await improveText(env, variant, text, brand);
+  return json({ text: out });
 });
 
 router.get('/api/redirect/:id', async (req: any, env: Env) => {
@@ -66,11 +76,3 @@ export default {
 function json(data: any, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8' } });
 }
-
-function heuristicImprove(variant: string, text: string) {
-  const addCTA = '\n\nПодписывайтесь и делитесь мнением!';
-  if (variant === 'short') return shorten(text, 280) + addCTA;
-  if (variant === 'interactive') return `${text}\n\nЧто вы думаете?` + addCTA;
-  return `${text}\n\nПочему это важно: — 1 — 2 — 3` + addCTA;
-}
-function shorten(t: string, max: number) { return t.length <= max ? t : t.slice(0, max - 1) + '…'; }
