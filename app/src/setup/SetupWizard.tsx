@@ -53,7 +53,7 @@ export default function SetupWizard() {
             <div><b>Cloudflare Worker</b> — прокси Telegram и API.</div>
             <ol>
               <li>Создайте воркер, включите KV, задайте Secrets: SIGNING_SECRET, TG_BOT_TOKEN, CF_ALLOWED_ORIGINS, GCP_SA_JSON, FIREBASE_PROJECT_ID.</li>
-              <li>Опубликуйте воркер и получите URL вида https://<name>.workers.dev/</li>
+              <li>Опубликуйте воркер и получите URL вида https://&lt;name&gt;.workers.dev/</li>
             </ol>
             <Field label="API Base (Worker URL)" value={apiBase} onChange={setApiBase} placeholder="https://tgsb.workers.dev/" />
             <Field label="PUBLIC_SIGNING_SALT (клиентская соль)" value={publicSalt} onChange={setPublicSalt} placeholder="любой текст" />
