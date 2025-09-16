@@ -1,0 +1,16 @@
+name = "tg-super-bus"
+main = "src/index.ts"
+compatibility_date = "2024-09-01"
+workers_dev = true
+
+[vars]
+# CF_ALLOWED_ORIGINS: comma-separated list, e.g. https://<user>.github.io
+# SIGNING_SECRET: strong random string
+# TG_BOT_TOKEN: your bot token
+# FIREBASE_PROJECT_ID: project id
+# GCP_SA_JSON: service account JSON (minified)
+
+[[kv_namespaces]]
+binding = "NONCES"
+id = ""
+preview_id = ""
