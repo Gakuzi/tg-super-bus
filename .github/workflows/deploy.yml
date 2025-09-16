@@ -22,8 +22,12 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm --filter app build
+      - name: Install root deps
+        run: pnpm install
+      - name: Install app deps
+        run: pnpm -C app install
+      - name: Build app
+        run: pnpm -C app build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
