@@ -12,5 +12,4 @@ workers_dev = true
 
 [[kv_namespaces]]
 binding = "NONCES"
-id = ""
-preview_id = ""
+id = "844bbc7bd48d4d18bab90228e7dd5169"

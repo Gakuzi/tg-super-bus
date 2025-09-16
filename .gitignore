@@ -2,4 +2,4 @@ node_modules
 .DS_Store
 app/dist
 worker/.wrangler
-.env*
+.env*worker/sa.min.json
