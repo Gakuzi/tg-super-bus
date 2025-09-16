@@ -42,14 +42,31 @@ export async function improveText(env: any, variant: string, text: string, brand
 }
 
 function buildPrompt(variant: string, text: string, brand?: any) {
-  return `variant=${variant}\nbrand=${JSON.stringify(brand || {})}\n\n${text}`;
+  const tone = brand?.tone || 'нейтральный';
+  const emojis = brand?.emojis === false ? false : true;
+  const hashtags = brand?.hashtags === true;
+  const cta = brand?.cta === false ? false : true;
+  return [
+    `variant=${variant}`,
+    `tone=${tone}`,
+    `emojis=${emojis}`,
+    `hashtags=${hashtags}`,
+    `cta=${cta}`,
+    '',
+    text,
+  ].join('\n');
 }
 
 function heuristicImprove(variant: string, text: string, brand?: any) {
   const tone = brand?.tone || 'нейтральный';
-  const addCTA = '\n\nПодписывайтесь и делитесь мнением!';
-  if (variant === 'short') return shorten(text, 280) + addCTA;
-  if (variant === 'interactive') return `${text}\n\nЧто вы думаете?` + addCTA;
-  return `${text}\n\nПочему это важно: — 1 — 2 — 3` + addCTA + `\nТон: ${tone}`;
+  const withEmojis = brand?.emojis !== false;
+  const withHashtags = brand?.hashtags === true;
+  const withCTA = brand?.cta !== false;
+  const ctaText = withCTA ? '\n\nПодписывайтесь и делитесь мнением!' : '';
+  const emoji = withEmojis ? ' ✨' : '';
+  const hash = withHashtags ? '\n\n#новости #телеграм' : '';
+  if (variant === 'short') return shorten(text, 280) + ctaText + hash + (emoji ? ' ' + emoji : '');
+  if (variant === 'interactive') return `${text}\n\nЧто вы думаете?${emoji}` + ctaText + hash;
+  return `${text}\n\nПочему это важно:${emoji} — 1 — 2 — 3` + ctaText + `\nТон: ${tone}` + hash;
 }
 function shorten(t: string, max: number) { return t.length <= max ? t : t.slice(0, max - 1) + '…'; }

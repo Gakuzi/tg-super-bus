@@ -5,12 +5,18 @@ import { useI18n } from '../lib/i18n';
 export default function Settings() {
   const apiBase = (import.meta as any).env.VITE_API_BASE || localStorage.getItem('VITE_API_BASE') || '';
   const salt = (import.meta as any).env.VITE_PUBLIC_SIGNING_SALT || localStorage.getItem('PUBLIC_SIGNING_SALT') || '';
+  const provider = localStorage.getItem('AI_PROVIDER') || 'gemini';
+  const devBypass = (localStorage.getItem('AI_DEV_BYPASS') || 'false') === 'true';
+  const [tone, setTone] = useState(localStorage.getItem('brand.tone') || 'нейтральный');
+  const [emojis, setEmojis] = useState((localStorage.getItem('brand.emojis') || 'true') === 'true');
   const [tz, setTz] = useState(localStorage.getItem('settings.timezone') || 'Europe/Moscow');
   const [lang, setLang] = useState(localStorage.getItem('settings.lang') || 'ru');
   const { setLang: setLangCtx } = useI18n();
 
   useEffect(() => { localStorage.setItem('settings.timezone', tz); }, [tz]);
   useEffect(() => { localStorage.setItem('settings.lang', lang); setLangCtx(lang as any); }, [lang]);
+  useEffect(() => { localStorage.setItem('brand.tone', tone); }, [tone]);
+  useEffect(() => { localStorage.setItem('brand.emojis', String(emojis)); }, [emojis]);
 
   return (
     <main className="flex-1 overflow-y-auto p-0">
@@ -38,6 +44,19 @@ export default function Settings() {
               <span className="font-medium text-slate-700">PUBLIC_SIGNING_SALT</span>
               <input className="col-span-2 form-input rounded-md border-slate-300" defaultValue={salt} onBlur={(e) => localStorage.setItem('PUBLIC_SIGNING_SALT', e.target.value)} />
             </label>
+            <label className="grid grid-cols-1 items-center gap-4 md:grid-cols-3">
+              <span className="font-medium text-slate-700">AI Provider</span>
+              <select className="col-span-2 form-select rounded-md border-slate-300" defaultValue={provider} onChange={(e) => localStorage.setItem('AI_PROVIDER', e.target.value)}>
+                <option value="gemini">Gemini (бесплатно)</option>
+                <option value="cf_ai">Cloudflare AI</option>
+                <option value="openai">OpenAI</option>
+                <option value="heuristic">Heuristic (локально)</option>
+              </select>
+            </label>
+            <label className="grid grid-cols-1 items-center gap-4 md:grid-cols-3">
+              <span className="font-medium text-slate-700">Dev bypass (локальный тест)</span>
+              <input type="checkbox" className="col-span-2 h-5 w-5" defaultChecked={devBypass} onChange={(e) => localStorage.setItem('AI_DEV_BYPASS', String(e.target.checked))} />
+            </label>
           </div>
         </section>
 
@@ -56,6 +75,14 @@ export default function Settings() {
                 <option value="ru">Русский</option>
                 <option value="en">English</option>
               </select>
+            </label>
+            <label className="grid grid-cols-1 items-center gap-4 md:grid-cols-3">
+              <span className="font-medium text-slate-700">Тон бренда</span>
+              <input className="col-span-2 form-input rounded-md border-slate-300" value={tone} onChange={(e) => setTone(e.target.value)} />
+            </label>
+            <label className="grid grid-cols-1 items-center gap-4 md:grid-cols-3">
+              <span className="font-medium text-slate-700">Эмодзи</span>
+              <input type="checkbox" className="col-span-2 h-5 w-5" checked={emojis} onChange={(e) => setEmojis(e.target.checked)} />
             </label>
           </div>
         </section>

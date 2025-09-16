@@ -54,7 +54,9 @@ router.post('/api/ai/improve', async (req: Request, env: Env) => {
     if (!check.ok) return json({ error: check.error }, 401);
   }
   const { variant, text, brand } = await req.json<any>();
-  const out = await improveText(env, variant, text, brand);
+  const providerOverride = (req.headers.get('x-ai-provider') || '').trim();
+  const env2 = providerOverride ? { ...env, AI_PROVIDER: providerOverride } : env;
+  const out = await improveText(env2, variant, text, brand);
   return json({ text: out });
 });
 

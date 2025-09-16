@@ -27,6 +27,7 @@ export async function improveTextClient(variant: AIClientVariant, text: string, 
     headers: {
       'content-type': 'application/json',
       ...(opts?.devBypass ? { 'x-dev': 'true' } : {}),
+      ...(localStorage.getItem('AI_PROVIDER') ? { 'x-ai-provider': localStorage.getItem('AI_PROVIDER') as string } : {}),
       ...(signingSecret ? { 'x-signature': sigHex, 'x-nonce': nonce, 'x-timestamp': timestamp } : {}),
     },
     body: JSON.stringify(body),
