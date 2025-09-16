@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import { signRequest } from '../lib/hmac';
 
 export default function Planner() {
@@ -6,6 +8,14 @@ export default function Planner() {
   const [apiBase, setApiBase] = useState(localStorage.getItem('VITE_API_BASE') || (import.meta as any).env.VITE_API_BASE || '');
   const [text, setText] = useState('Привет из TG Super-Bus!');
   const [sending, setSending] = useState(false);
+  const [title, setTitle] = useState('');
+  const [status, setStatus] = useState<'draft'|'review'|'approved'|'scheduled'|'sent'>('draft');
+  const [comments, setComments] = useState<string[]>([]);
+  const [newComment, setNewComment] = useState('');
+  const previewHtml = useMemo(() => {
+    const html = marked.parse(text || '');
+    return { __html: DOMPurify.sanitize(html as string) };
+  }, [text]);
   const signingSecret = localStorage.getItem('PUBLIC_SIGNING_SALT') || (import.meta as any).env.VITE_PUBLIC_SIGNING_SALT || '';
 
   useEffect(() => {
@@ -69,7 +79,7 @@ export default function Planner() {
           <div className="section-title">Создать новый пост</div>
           <label className="col">
             <div>Заголовок поста</div>
-            <input placeholder="Введите заголовок поста" />
+            <input placeholder="Введите заголовок поста" value={title} onChange={(e)=>setTitle(e.target.value)} />
           </label>
           <label className="col">
             <div>Содержимое поста (Markdown)</div>
@@ -120,8 +130,8 @@ export default function Planner() {
           <div className="section-title">Предпросмотр поста</div>
           <div className="card" style={{ background: '#0f172a', color: '#fff' }}>
             <div style={{ fontWeight: 700, marginBottom: 6 }}>TG Super-Bus</div>
-            <div className="muted" style={{ color: '#d1d5db' }}>Заголовок поста</div>
-            <div style={{ fontSize: 14, color: '#e5e7eb' }}>{text}</div>
+            <div className="muted" style={{ color: '#d1d5db' }}>{title || 'Заголовок поста'}</div>
+            <div style={{ fontSize: 14, color: '#e5e7eb' }} dangerouslySetInnerHTML={previewHtml} />
           </div>
         </div>
 
@@ -129,26 +139,48 @@ export default function Planner() {
           <div className="section-title">Статус поста</div>
           <div className="status-timeline col" style={{ gap: 14 }}>
             <div className="status-item">
-              <div className="status-dot active">✓</div>
+              <div className={`status-dot ${status==='draft'?'active':''}`}>✓</div>
               <div className="col" style={{ gap: 2 }}>
                 <div style={{ fontWeight: 600 }}>Черновик</div>
                 <div className="muted">Создан только что</div>
               </div>
             </div>
             <div className="status-item">
-              <div className="status-dot">•</div>
+              <div className={`status-dot ${status==='scheduled'?'active':''}`}>•</div>
               <div className="col" style={{ gap: 2 }}>
                 <div style={{ fontWeight: 600, color: '#6b7280' }}>Запланировано</div>
                 <div className="muted">Ожидает публикации</div>
               </div>
             </div>
             <div className="status-item">
-              <div className="status-dot">•</div>
+              <div className={`status-dot ${status==='sent'?'active':''}`}>•</div>
               <div className="col" style={{ gap: 2 }}>
                 <div style={{ fontWeight: 600, color: '#6b7280' }}>Опубликовано</div>
                 <div className="muted">Еще не опубликовано</div>
               </div>
             </div>
+          </div>
+          <div className="row" style={{ gap: 8 }}>
+            <button onClick={()=>setStatus('review')}>На ревью</button>
+            <button onClick={()=>setStatus('approved')}>Утвердить</button>
+            <button onClick={()=>setStatus('scheduled')}>Запланировать</button>
+            <button onClick={()=>setStatus('sent')}>Отметить отправленным</button>
+          </div>
+        </div>
+
+        <div className="card col" style={{ gap: 10 }}>
+          <div className="section-title">Комментарии</div>
+          <div className="col" style={{ gap: 6 }}>
+            {comments.length === 0 && <div className="muted">Нет комментариев</div>}
+            {comments.map((c, i)=>(
+              <div key={i} className="row" style={{ justifyContent:'space-between' }}>
+                <div>{c}</div>
+              </div>
+            ))}
+          </div>
+          <div className="row">
+            <input placeholder="Оставьте комментарий (@user)" value={newComment} onChange={(e)=>setNewComment(e.target.value)} />
+            <button className="btn-primary" onClick={()=>{ if(newComment.trim()){ setComments((p)=>[...p, newComment.trim()]); setNewComment(''); } }}>Добавить</button>
           </div>
         </div>
 

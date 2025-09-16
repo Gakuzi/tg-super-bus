@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: TG Super-Bus Worker API
+  version: 1.0.0
+servers:
+  - url: https://<your-worker>.workers.dev
+paths:
+  /api/v1/rss/pull:
+    post:
+      summary: Pull RSS/feeds and store ideas
+      tags: [rss]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sources:
+                  type: array
+                  items: { type: string, format: uri }
+                topic: { type: string }
+                lang: { type: string, enum: [ru, en], default: ru }
+                timeoutMs: { type: integer, minimum: 2000, maximum: 20000, default: 10000 }
+                retries: { type: integer, minimum: 0, maximum: 3, default: 1 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  count: { type: integer }
+  /api/v1/ideas:
+    get:
+      summary: List collected ideas
+      tags: [rss]
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 100, default: 50 }
+        - in: query
+          name: cursor
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: string }
+                        title: { type: string }
+                        url: { type: string, format: uri }
+                        summary: { type: string }
+                        image: { type: string, format: uri }
+                        publishedAt: { type: integer }
+                        hash: { type: string }
+                  nextCursor: { type: string, nullable: true }
+  /api/v1/ai/improve:
+    post:
+      summary: Improve text using AI
+      tags: [ai]
+      security:
+        - hmac: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                variant: { type: string, enum: [short, interactive, detailed], default: short }
+                text: { type: string }
+                brand:
+                  type: object
+                  properties:
+                    tone: { type: string }
+                    emojis: { type: boolean }
+                    hashtags: { type: boolean }
+                    cta: { type: boolean }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  parts:
+                    type: array
+                    items: { type: string }
+  /api/v1/tg:
+    post:
+      summary: Telegram proxy
+      tags: [telegram]
+      security:
+        - hmac: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method: { type: string }
+                payload: { }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  result: { }
+  /api/v1/redirect/{id}:
+    get:
+      summary: Redirect with tracking or return metrics
+      tags: [tracking]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: metrics
+          schema: { type: string }
+        - in: query
+          name: u
+          schema: { type: string, description: url-encoded target }
+      responses:
+        '200':
+          description: Metrics JSON (when metrics=1)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string }
+                  count: { type: integer }
+        '302':
+          description: Redirect
+
+components:
+  securitySchemes:
+    hmac:
+      type: apiKey
+      in: header
+      name: X-Signature
