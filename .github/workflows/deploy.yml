@@ -30,6 +30,12 @@ jobs:
         run: |
           echo "VITE_API_BASE=${{ secrets.VITE_API_BASE }}" >> app/.env
           echo "VITE_PUBLIC_SIGNING_SALT=${{ secrets.VITE_PUBLIC_SIGNING_SALT }}" >> app/.env
+          echo "VITE_FB_API_KEY=${{ secrets.VITE_FB_API_KEY }}" >> app/.env
+          echo "VITE_FB_AUTH_DOMAIN=${{ secrets.VITE_FB_AUTH_DOMAIN }}" >> app/.env
+          echo "VITE_FB_PROJECT_ID=${{ secrets.VITE_FB_PROJECT_ID }}" >> app/.env
+          echo "VITE_FB_STORAGE_BUCKET=${{ secrets.VITE_FB_STORAGE_BUCKET }}" >> app/.env
+          echo "VITE_FB_MESSAGING_SENDER_ID=${{ secrets.VITE_FB_MESSAGING_SENDER_ID }}" >> app/.env
+          echo "VITE_FB_APP_ID=${{ secrets.VITE_FB_APP_ID }}" >> app/.env
       - name: Build app
         run: pnpm -C app build
       - name: Upload artifact
