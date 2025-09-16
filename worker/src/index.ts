@@ -61,7 +61,10 @@ router.post('/api/ai/improve', async (req: Request, env: Env) => {
 router.get('/api/redirect/:id', async (req: any, env: Env) => {
   const id = req.params.id as string;
   const target = decodeURIComponent(req.query?.u || '');
-  await env.NONCES.put(`ctr:${id}`, ((parseInt((await env.NONCES.get(`ctr:${id}`)) || '0') + 1) || 1).toString(), { expirationTtl: 86400 * 30 });
+  const key = `ctr:${id}`;
+  const curr = parseInt((await env.NONCES.get(key)) || '0') || 0;
+  const next = curr + 1;
+  await env.NONCES.put(key, String(next), { expirationTtl: 86400 * 30 });
   return Response.redirect(target, 302);
 });
 

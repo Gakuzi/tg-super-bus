@@ -2,9 +2,52 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isSignedIn() { return request.auth != null; }
+    function isOwner(resourceData) { return isSignedIn() && resourceData.createdBy == request.auth.uid; }
+    function hasRole(role) { return isSignedIn() && role in request.auth.token.roles; }
 
-    match /{document=**} {
-      allow read, write: if isSignedIn();
+    match /users/{uid} {
+      allow read: if isSignedIn() && (uid == request.auth.uid || hasRole('admin'));
+      allow write: if isSignedIn() && (uid == request.auth.uid || hasRole('admin'));
+    }
+
+    match /channels/{id} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update, delete: if isSignedIn() && (resource.data.createdBy == request.auth.uid || hasRole('admin'));
+    }
+
+    match /sources/{id} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update, delete: if isOwner(resource.data) || hasRole('admin');
+    }
+
+    match /ideas/{id} {
+      allow read, create: if isSignedIn();
+      allow update, delete: if isOwner(resource.data) || hasRole('admin');
+    }
+
+    match /posts/{id} {
+      allow read, create: if isSignedIn();
+      allow update, delete: if isOwner(resource.data) || hasRole('editor') || hasRole('admin');
+    }
+
+    match /schedules/{id} {
+      allow read, create: if isSignedIn();
+      allow update, delete: if isSignedIn();
+    }
+
+    match /metrics/{id} {
+      allow read: if isSignedIn();
+      allow write: if hasRole('admin');
+    }
+
+    match /prompts/{id} {
+      allow read, write: if hasRole('admin');
+    }
+
+    match /settings/{uid} {
+      allow read, write: if isSignedIn() && uid == request.auth.uid;
     }
   }
 }
