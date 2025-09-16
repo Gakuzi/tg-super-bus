@@ -2,6 +2,8 @@ import './styles/global.css';
 import { useEffect, useState } from 'react';
 import { useAuth } from './lib/auth';
 import { signInWithGoogle } from './setup/firebase';
+import Landing from './views/Landing';
+import { upsertUser } from './lib/db';
 import Planner from './planner/Planner';
 import Calendar from './views/Calendar';
 import Ideas from './views/Ideas';
@@ -23,21 +25,17 @@ export default function App() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  // Создать/обновить пользователя в БД после входа
+  useEffect(() => {
+    if (user) {
+      upsertUser({ uid: user.uid, email: user.email || undefined, createdAt: Date.now() }).catch(() => {});
+    }
+  }, [user]);
   if (user === undefined) {
     return <div className="flex min-h-screen items-center justify-center text-slate-600">Загрузка…</div>;
   }
 
-  if (!user) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
-          <h1 className="mb-2 text-2xl font-bold text-slate-900">TG Super-Bus</h1>
-          <p className="mb-6 text-sm text-slate-600">Войдите, чтобы продолжить и подключить ваши каналы Telegram.</p>
-          <button className="btn-primary w-full" onClick={signInWithGoogle}>Войти через Google</button>
-        </div>
-      </div>
-    );
-  }
+  if (!user) return <Landing />;
 
   return (
     <div className="flex min-h-screen bg-gray-50 text-gray-900" style={{ fontFamily: 'Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial' }}>
