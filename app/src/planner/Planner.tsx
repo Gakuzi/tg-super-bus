@@ -63,23 +63,96 @@ export default function Planner() {
   };
 
   return (
-    <div className="col" style={{ gap: 12 }}>
-      <div className="card row">
-        <button onClick={() => improve('short')}>ИИ: короткий</button>
-        <button onClick={() => improve('detailed')}>ИИ: подробный</button>
-        <button onClick={() => improve('interactive')}>ИИ: интерактив</button>
-      </div>
-      <div className="card col">
-        <label className="col">
-          <div>chat_id</div>
-          <input value={chatId} onChange={(e) => { setChatId(e.target.value); localStorage.setItem('TG_CHAT_ID', e.target.value); }} placeholder="-100..." />
-        </label>
-        <label className="col">
-          <div>Текст</div>
-          <textarea rows={8} value={text} onChange={(e) => setText(e.target.value)} />
-        </label>
-        <button onClick={send} disabled={sending}>{sending ? 'Отправка…' : 'Отправить'}</button>
-      </div>
+    <div className="planner-page">
+      <section className="col" style={{ gap: 16 }}>
+        <div className="card col">
+          <div className="section-title">Создать новый пост</div>
+          <label className="col">
+            <div>Заголовок поста</div>
+            <input placeholder="Введите заголовок поста" />
+          </label>
+          <label className="col">
+            <div>Содержимое поста (Markdown)</div>
+            <textarea rows={10} placeholder="Напишите свой пост здесь..." value={text} onChange={(e) => setText(e.target.value)} />
+          </label>
+        </div>
+
+        <div className="card col">
+          <div className="section-title">ИИ Помощник</div>
+          <div className="row" style={{ justifyContent: 'space-between' }}>
+            <label className="col" style={{ flex: 1 }}>
+              <div>Вариант улучшения</div>
+              <select onChange={() => {}}>
+                <option>Улучшить текст</option>
+                <option>Подробный</option>
+                <option>Интерактивный</option>
+              </select>
+            </label>
+          </div>
+          <div className="actions">
+            <button className="btn-primary" onClick={() => improve('short')}>Короткий</button>
+            <button className="btn-primary" onClick={() => improve('detailed')}>Подробный</button>
+            <button className="btn-primary" onClick={() => improve('interactive')}>Интерактив</button>
+          </div>
+        </div>
+
+        <div className="card col">
+          <div className="section-title">Настройки поста</div>
+          <div className="row" style={{ gap: 12 }}>
+            <label className="col" style={{ flex: 1 }}>
+              <div>chat_id канала</div>
+              <input value={chatId} onChange={(e) => { setChatId(e.target.value); localStorage.setItem('TG_CHAT_ID', e.target.value); }} placeholder="-100..." />
+            </label>
+            <label className="col" style={{ flex: 1 }}>
+              <div>Время публикации</div>
+              <input type="datetime-local" />
+            </label>
+          </div>
+          <div className="actions">
+            <button>Сохранить как черновик</button>
+            <button className="btn-primary" onClick={send} disabled={sending}>{sending ? 'Отправка…' : 'Опубликовать'}</button>
+          </div>
+        </div>
+      </section>
+
+      <aside className="col" style={{ gap: 16 }}>
+        <div className="card col" style={{ gap: 12 }}>
+          <div className="section-title">Предпросмотр поста</div>
+          <div className="card" style={{ background: '#0f172a', color: '#fff' }}>
+            <div style={{ fontWeight: 700, marginBottom: 6 }}>TG Super-Bus</div>
+            <div className="muted" style={{ color: '#d1d5db' }}>Заголовок поста</div>
+            <div style={{ fontSize: 14, color: '#e5e7eb' }}>{text}</div>
+          </div>
+        </div>
+
+        <div className="card col" style={{ gap: 12 }}>
+          <div className="section-title">Статус поста</div>
+          <div className="status-timeline col" style={{ gap: 14 }}>
+            <div className="status-item">
+              <div className="status-dot active">✓</div>
+              <div className="col" style={{ gap: 2 }}>
+                <div style={{ fontWeight: 600 }}>Черновик</div>
+                <div className="muted">Создан только что</div>
+              </div>
+            </div>
+            <div className="status-item">
+              <div className="status-dot">•</div>
+              <div className="col" style={{ gap: 2 }}>
+                <div style={{ fontWeight: 600, color: '#6b7280' }}>Запланировано</div>
+                <div className="muted">Ожидает публикации</div>
+              </div>
+            </div>
+            <div className="status-item">
+              <div className="status-dot">•</div>
+              <div className="col" style={{ gap: 2 }}>
+                <div style={{ fontWeight: 600, color: '#6b7280' }}>Опубликовано</div>
+                <div className="muted">Еще не опубликовано</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </aside>
     </div>
   );
 }

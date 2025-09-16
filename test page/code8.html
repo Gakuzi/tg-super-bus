@@ -1,0 +1,131 @@
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-50: #f0f9ff;
+        --primary-100: #e0f2fe;
+        --primary-200: #bae6fd;
+        --primary-300: #7dd3fc;
+        --primary-400: #38bdf8;
+        --primary-500: #0ea5e9;
+        --primary-600: #0284c7;
+        --primary-700: #0369a1;
+        --primary-800: #075985;
+        --primary-900: #0c4a6e;
+        --primary-950: #082f49;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900" style='font-family: Inter, "Noto Sans", sans-serif;'>
+<div class="flex min-h-screen">
+<aside class="w-64 shrink-0 border-r border-slate-200 bg-white">
+<div class="flex h-full flex-col p-4">
+<div class="p-4">
+<h1 class="text-xl font-bold text-slate-900">TG Super-Bus</h1>
+</div>
+<nav class="mt-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 rounded-md px-4 py-2 text-slate-700 hover:bg-slate-100" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-sm font-medium">Аккаунт</span>
+</a>
+<a class="flex items-center gap-3 rounded-md px-4 py-2 text-slate-700 hover:bg-slate-100" href="#">
+<span class="material-symbols-outlined">tag</span>
+<span class="text-sm font-medium">Каналы</span>
+</a>
+<a class="flex items-center gap-3 rounded-md px-4 py-2 text-slate-700 hover:bg-slate-100" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="text-sm font-medium">Уведомления</span>
+</a>
+<a class="flex items-center gap-3 rounded-md bg-primary-100 px-4 py-2 text-primary-700" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Настройки</span>
+</a>
+<a class="flex items-center gap-3 rounded-md px-4 py-2 text-slate-700 hover:bg-slate-100" href="#">
+<span class="material-symbols-outlined">info</span>
+<span class="text-sm font-medium">О приложении</span>
+</a>
+</nav>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto p-8">
+<div class="mx-auto max-w-4xl">
+<h2 class="mb-8 text-4xl font-bold tracking-tight text-slate-900">Настройки</h2>
+<div class="space-y-10">
+<section>
+<h3 class="mb-4 text-xl font-semibold text-slate-800">Общие</h3>
+<div class="space-y-6">
+<div class="grid grid-cols-1 items-center gap-4 md:grid-cols-3">
+<label class="font-medium text-slate-700">Язык</label>
+<div class="col-span-2 flex gap-2">
+<button class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 ring-2 ring-primary-500 ring-offset-2">Русский</button>
+<button class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">English</button>
+</div>
+</div>
+<div class="grid grid-cols-1 items-center gap-4 md:grid-cols-3">
+<label class="font-medium text-slate-700">Тема</label>
+<div class="col-span-2 flex gap-2">
+<button class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 ring-2 ring-primary-500 ring-offset-2">Светлая</button>
+<button class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Темная</button>
+</div>
+</div>
+</div>
+</section>
+<div class="border-t border-slate-200"></div>
+<section>
+<h3 class="mb-4 text-xl font-semibold text-slate-800">Приложение</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium text-slate-700">Автоматические обновления</h4>
+<p class="text-sm text-slate-500">Проверять и устанавливать обновления автоматически.</p>
+</div>
+<label class="relative inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox" value=""/>
+<div class="peer h-6 w-11 rounded-full bg-slate-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-slate-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300"></div>
+</label>
+</div>
+</div>
+</section>
+<div class="border-t border-slate-200"></div>
+<section>
+<h3 class="mb-4 text-xl font-semibold text-slate-800">Данные</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium text-slate-700">Очистить кэш</h4>
+<p class="text-sm text-slate-500">Удалить временные файлы приложения.</p>
+</div>
+<button class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Очистить</button>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-medium text-slate-700">Очистить историю поиска</h4>
+<p class="text-sm text-slate-500">Удалить все ваши предыдущие поисковые запросы.</p>
+</div>
+<button class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Очистить</button>
+</div>
+</div>
+</section>
+<div class="border-t border-slate-200"></div>
+<section>
+<h3 class="mb-4 text-xl font-semibold text-red-600">Дополнительно</h3>
+<div class="flex items-center justify-between rounded-md border border-red-300 bg-red-50 p-4">
+<div>
+<h4 class="font-medium text-red-800">Сбросить настройки</h4>
+<p class="text-sm text-red-700">Это действие вернет все настройки приложения к их значениям по умолчанию. Отменить его будет невозможно.</p>
+</div>
+<button class="rounded-md border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 hover:text-red-800">Сбросить</button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

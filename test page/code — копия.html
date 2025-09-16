@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700&amp;family=Noto+Sans%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>TG Super-Bus - Профиль</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-50: #f0f9ff;
+        --primary-100: #e0f2fe;
+        --primary-200: #bae6fd;
+        --primary-300: #7dd3fc;
+        --primary-400: #38bdf8;
+        --primary-500: #0ea5e9;
+        --primary-600: #0284c7;
+        --primary-700: #0369a1;
+        --primary-800: #075985;
+        --primary-900: #0c4a6e;
+      }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900" style='font-family: Inter, "Noto Sans", sans-serif;'>
+<div class="flex min-h-screen">
+<aside class="w-64 flex-shrink-0 bg-white border-r border-gray-200 flex flex-col">
+<div class="p-4 border-b border-gray-200">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0S8Skbr2Fl4kw7wWd6BUWcQujURFdz7b5OR56Dp3ixeVp6ZMt_Vqh0t_CQMTm3mSb_LIWwgBuI0lUldQr3Mm4IR4fsTbmG1AcJXbUxuqy5SPRdm83fIuM1hsxOcV3eHT1wEfTJ5gyCJYPPQ8hhyHuxb82vwpW-NU4T8v_edM_fGdP2t1uku42vlJfhz6HS_1BYAUIII3z0RQNoRnorOdnEIkLra02QLNHJ-UJyS3LikSZTSOaoO1tfaxqZJdpNXIjotZ5zbtWWuVF");'></div>
+<h1 class="text-gray-800 text-lg font-semibold">TG Super-Bus</h1>
+</div>
+</div>
+<nav class="flex-1 p-4 space-y-2">
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Главная</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md transition-colors" href="#">
+<span class="material-symbols-outlined">tag</span>
+<span class="text-sm font-medium">Каналы</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium">Аналитика</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md transition-colors" href="#">
+<span class="material-symbols-outlined">update</span>
+<span class="text-sm font-medium">Автопостинг</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Команда</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-100 text-primary-700 rounded-md transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-sm font-medium">Профиль пользователя</span>
+</a>
+</nav>
+</aside>
+<main class="flex-1 p-8">
+<div class="max-w-4xl mx-auto">
+<header class="mb-8">
+<h1 class="text-4xl font-bold text-gray-800 tracking-tight">Профиль пользователя</h1>
+<p class="text-gray-500 mt-1">Управляйте информацией своего профиля и настройками.</p>
+</header>
+<div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+<form class="space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="name">Имя</label>
+<input class="form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm" id="name" placeholder="Ваше имя" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="email">Email</label>
+<input class="form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm" id="email" placeholder="your.email@example.com" type="email"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="password">Пароль</label>
+<div class="relative">
+<input class="form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm" id="password" placeholder="••••••••••••" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600" type="button">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+<p class="mt-2 text-sm text-gray-500">Оставьте поле пустым, если не хотите менять пароль.</p>
+</div>
+<div class="border-t border-gray-200 pt-8">
+<h2 class="text-lg font-semibold leading-6 text-gray-900">Настройки уведомлений</h2>
+<p class="mt-1 text-sm text-gray-600">Выберите, какие уведомления вы хотите получать.</p>
+<div class="mt-6 space-y-4">
+<div class="relative flex items-start">
+<div class="flex h-5 items-center">
+<input checked="" class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500" id="new-followers" name="notifications" type="checkbox"/>
+</div>
+<div class="ml-3 text-sm">
+<label class="font-medium text-gray-700" for="new-followers">Уведомления о новых подписчиках</label>
+<p class="text-gray-500">Получайте уведомления, когда кто-то подписывается на ваш канал.</p>
+</div>
+</div>
+<div class="relative flex items-start">
+<div class="flex h-5 items-center">
+<input class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500" id="new-messages" name="notifications" type="checkbox"/>
+</div>
+<div class="ml-3 text-sm">
+<label class="font-medium text-gray-700" for="new-messages">Уведомления о новых сообщениях</label>
+<p class="text-gray-500">Получайте уведомления о новых сообщениях в вашей команде.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-end pt-5 border-t border-gray-200">
+<button class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" type="button">
+                    Отмена
+                  </button>
+<button class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" type="submit">
+                    Сохранить изменения
+                  </button>
+</div>
+</form>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

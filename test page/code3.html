@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>TG Super-Bus</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #0da6f2;
+      }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900" style='font-family: Inter, "Noto Sans", sans-serif;'>
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-gray-200 px-10 py-4">
+<div class="flex items-center gap-4 text-gray-900">
+<svg class="size-8 text-[var(--primary-color)]" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path></svg>
+<h1 class="text-xl font-bold">TG Super-Bus</h1>
+</div>
+<nav class="flex flex-1 justify-center gap-8">
+<a class="text-sm font-medium text-gray-700 hover:text-[var(--primary-color)] transition-colors" href="#">Посты</a>
+<a class="text-sm font-medium text-gray-700 hover:text-[var(--primary-color)] transition-colors" href="#">Аналитика</a>
+<a class="text-sm font-medium text-gray-700 hover:text-[var(--primary-color)] transition-colors" href="#">Монетизация</a>
+<a class="text-sm font-medium text-gray-700 hover:text-[var(--primary-color)] transition-colors" href="#">Настройки</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative rounded-full p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
+<span class="material-symbols-outlined"> notifications </span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDG68NlKsUaE9kWf8iBbCpgmqslnLGmmqjMHcYPXvnAKFYHG8NNkO87OdIGv8N4j4J6-iPH0iipvrkxN6cSQhAoS7y_bndRVOBB3eygEki8okRunF7n6viX5M-cA6y3U2TwqWJDIpLYO7C5ahZHvMt3qheZTQ8Yar3RNSGTD5MM_CR3192EoX8jkcfB-tlkFPrg5zrpGOuq9XKqoz8Mc8xipn6PyDG8wBptq8_RY9m1Y_-lZaeU1PKW0yRvHFTIucM-ds5y_c4V9YFs");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center gap-8 p-8">
+<div class="flex w-full max-w-7xl flex-col lg:flex-row lg:gap-8">
+<div class="flex-1 rounded-lg bg-white p-6 shadow-sm">
+<div class="mb-6">
+<span class="text-sm font-medium text-gray-500"><a class="hover:text-[var(--primary-color)]" href="#">Посты</a> / Новый пост</span>
+</div>
+<h2 class="text-2xl font-bold text-gray-900 mb-6">Создать новый пост</h2>
+<div class="space-y-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="post-title">Заголовок поста</label>
+<input class="form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="post-title" placeholder="Введите заголовок поста" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="post-content">Содержимое поста (поддержка Markdown)</label>
+<textarea class="form-textarea block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="post-content" placeholder="Напишите свой пост здесь..." rows="8"></textarea>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-gray-200">
+<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[var(--primary-color)]"> auto_awesome </span>
+                  AI Помощник
+                </h3>
+<div class="space-y-4 rounded-lg border border-dashed border-gray-300 p-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="ai-action">Действие</label>
+<select class="form-select block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="ai-action">
+<option>Улучшить текст</option>
+<option>Сгенерировать идеи</option>
+<option>Перевести</option>
+<option>Проверить грамматику</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="ai-input">Текст для улучшения</label>
+<textarea class="form-textarea block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="ai-input" placeholder="Введите текст или оставьте пустым, чтобы использовать содержимое поста" rows="4"></textarea>
+</div>
+<div class="flex justify-end">
+<button class="flex items-center justify-center gap-2 rounded-md bg-[var(--primary-color)] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
+<span class="material-symbols-outlined text-base"> spark </span>
+<span>Улучшить</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-gray-200">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Настройки поста</h3>
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="post-buttons">Конструктор кнопок</label>
+<button class="w-full flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+<span class="material-symbols-outlined text-base"> add_circle_outline </span>
+                      Добавить кнопки
+                    </button>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="post-poll">Конструктор опросов</label>
+<button class="w-full flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+<span class="material-symbols-outlined text-base"> poll </span>
+                      Создать опрос
+                    </button>
+</div>
+</div>
+<div class="mt-4">
+<label class="block text-sm font-medium text-gray-700 mb-1" for="publish-time">Время публикации</label>
+<input class="form-input block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] sm:text-sm" id="publish-time" type="datetime-local"/>
+</div>
+</div>
+<div class="mt-8 flex justify-end gap-4 border-t border-gray-200 pt-6">
+<button class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">Сохранить как черновик</button>
+<button class="rounded-md bg-[var(--primary-color)] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">Опубликовать</button>
+</div>
+</div>
+<aside class="w-full lg:w-96 flex-shrink-0 space-y-8 mt-8 lg:mt-0">
+<div class="rounded-lg bg-white p-6 shadow-sm">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Предпросмотр поста</h3>
+<div class="rounded-lg bg-gray-800 p-4">
+<div class="flex items-start gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDG68NlKsUaE9kWf8iBbCpgmqslnLGmmqjMHcYPXvnAKFYHG8NNkO87OdIGv8N4j4J6-iPH0iipvrkxN6cSQhAoS7y_bndRVOBB3eygEki8okRunF7n6viX5M-cA6y3U2TwqWJDIpLYO7C5ahZHvMt3qheZTQ8Yar3RNSGTD5MM_CR3192EoX8jkcfB-tlkFPrg5zrpGOuq9XKqoz8Mc8xipn6PyDG8wBptq8_RY9m1Y_-lZaeU1PKW0yRvHFTIucM-ds5y_c4V9YFs");'></div>
+<div class="flex-1">
+<p class="font-bold text-white">TG Super-Bus</p>
+<div class="mt-2 text-sm text-gray-300">
+<p class="font-bold text-white">Заголовок поста</p>
+<p>Это превью вашего поста. Он появится в выбранном канале с заголовком и контентом, который вы ввели.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-lg bg-white p-6 shadow-sm">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Статус поста</h3>
+<div class="relative">
+<div class="absolute left-4 top-0 h-full w-0.5 bg-gray-200"></div>
+<ul class="space-y-8">
+<li class="flex items-start gap-4">
+<div class="z-10 flex size-8 items-center justify-center rounded-full bg-[var(--primary-color)] text-white">
+<span class="material-symbols-outlined text-lg"> edit </span>
+</div>
+<div>
+<p class="font-semibold text-gray-900">Черновик</p>
+<p class="text-sm text-gray-500">Создан 2 минуты назад</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="z-10 flex size-8 items-center justify-center rounded-full bg-gray-300 text-gray-600">
+<span class="material-symbols-outlined text-lg"> schedule </span>
+</div>
+<div>
+<p class="font-semibold text-gray-500">Запланировано</p>
+<p class="text-sm text-gray-400">Ожидает публикации</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="z-10 flex size-8 items-center justify-center rounded-full bg-gray-300 text-gray-600">
+<span class="material-symbols-outlined text-lg"> check_circle </span>
+</div>
+<div>
+<p class="font-semibold text-gray-500">Опубликовано</p>
+<p class="text-sm text-gray-400">Еще не опубликовано</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="rounded-lg bg-white p-6 shadow-sm">
+<h3 class="text-lg font-semibold text-gray-900 mb-4">Комментарии</h3>
+<div class="text-center text-sm text-gray-500">
+<p>Комментарии к посту появятся здесь после публикации.</p>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>
