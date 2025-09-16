@@ -10,22 +10,26 @@ import Settings from './views/Settings';
 export default function App() {
   const [tab, setTab] = useState<'planner' | 'calendar' | 'ideas' | 'posts' | 'analytics' | 'settings'>('planner');
   return (
-    <div style={{ padding: 16 }}>
-      <h2 style={{ marginTop: 0 }}>TG Super-Bus</h2>
-      <nav className="row" style={{ gap: 8, marginBottom: 12 }}>
-        <button onClick={() => setTab('planner')} style={{ background: tab === 'planner' ? '#eee' : '' }}>Планировщик</button>
-        <button onClick={() => setTab('calendar')} style={{ background: tab === 'calendar' ? '#eee' : '' }}>Календарь</button>
-        <button onClick={() => setTab('ideas')} style={{ background: tab === 'ideas' ? '#eee' : '' }}>Идеи</button>
-        <button onClick={() => setTab('posts')} style={{ background: tab === 'posts' ? '#eee' : '' }}>Посты</button>
-        <button onClick={() => setTab('analytics')} style={{ background: tab === 'analytics' ? '#eee' : '' }}>Аналитика</button>
-        <button onClick={() => setTab('settings')} style={{ background: tab === 'settings' ? '#eee' : '' }}>Настройки</button>
-      </nav>
-      {tab === 'planner' && <Planner />}
-      {tab === 'calendar' && <Calendar />}
-      {tab === 'ideas' && <Ideas />}
-      {tab === 'posts' && <Posts />}
-      {tab === 'analytics' && <Analytics />}
-      {tab === 'settings' && <Settings />}
+    <div className="app">
+      <aside className="sidebar">
+        <h2>TG Super-Bus</h2>
+        <nav className="nav">
+          <button className={tab==='planner'?'active':''} onClick={() => setTab('planner')}>Планировщик</button>
+          <button className={tab==='calendar'?'active':''} onClick={() => setTab('calendar')}>Календарь</button>
+          <button className={tab==='ideas'?'active':''} onClick={() => setTab('ideas')}>Идеи</button>
+          <button className={tab==='posts'?'active':''} onClick={() => setTab('posts')}>Посты</button>
+          <button className={tab==='analytics'?'active':''} onClick={() => setTab('analytics')}>Аналитика</button>
+          <button className={tab==='settings'?'active':''} onClick={() => setTab('settings')}>Настройки</button>
+        </nav>
+      </aside>
+      <main className="content">
+        {tab === 'planner' && <Planner />}
+        {tab === 'calendar' && <Calendar />}
+        {tab === 'ideas' && <Ideas />}
+        {tab === 'posts' && <Posts />}
+        {tab === 'analytics' && <Analytics />}
+        {tab === 'settings' && <Settings />}
+      </main>
     </div>
   );
 }

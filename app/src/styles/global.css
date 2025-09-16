@@ -1,6 +1,22 @@
-body { margin: 0; font-family: Inter, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial; }
-.card { background: #fff; border: 1px solid #e5e5ea; border-radius: 12px; padding: 12px; }
+body { margin: 0; font-family: Inter, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial; background: #f7f7f9; color: #111; }
+:root { --card:#fff; --border:#e6e6ea; --muted:#6b6b6b; --primary:#0a84ff; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.04); }
 .row { display: flex; gap: 8px; align-items: center; }
 .col { display: flex; flex-direction: column; gap: 8px; }
-input, select, textarea, button { padding: 8px; border-radius: 8px; border: 1px solid #e5e5ea; }
-button { cursor: pointer; background: #fff; }
+input, select, textarea, button { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: #fff; }
+button { cursor: pointer; transition: background .15s ease, box-shadow .15s ease; }
+button:hover { background: #f0f0f3; }
+button.active { background: #ebf3ff; border-color: #cfe3ff; }
+
+/* Layout */
+.app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+.sidebar { border-right: 1px solid var(--border); background: #fcfcfe; padding: 16px; position: sticky; top: 0; height: 100vh; }
+.sidebar h2 { margin: 0 0 12px; font-size: 18px; }
+.nav { display: flex; flex-direction: column; gap: 6px; }
+.nav button { text-align: left; background: #fff; }
+.content { padding: 16px; }
+
+@media (max-width: 920px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+}
