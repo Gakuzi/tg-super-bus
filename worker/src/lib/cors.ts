@@ -7,6 +7,6 @@ export function withCors(originList: string[] = [], req: Request, res: Response)
     headers.set('Vary', 'Origin');
   }
   headers.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  headers.set('Access-Control-Allow-Headers', 'Content-Type,X-Signature,X-Nonce,X-Timestamp,Authorization');
+  headers.set('Access-Control-Allow-Headers', 'Content-Type,X-Signature,X-Nonce,X-Timestamp,Authorization,X-AI-Provider,X-Dev');
   return new Response(res.body, { status: res.status, headers });
 }
